@@ -9,4 +9,10 @@ class WorkOrder extends Pivot
     //
     protected $table = 'work_orders';
 
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'owner_id');
+    }
+
 }

@@ -18,6 +18,7 @@ Route::get('dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/workorders/create', [WorkOrdersController::class, 'create'])->name('workorders.create');
+Route::post('/workorders/create', [WorkOrdersController::class, 'store'])->name('workorders.store');
 Route::get('/workorders', [WorkOrdersController::class, 'index'])->name('workorders');
 Route::get('/workorders/{workOrder}', [WorkOrdersController::class, 'show']);
 

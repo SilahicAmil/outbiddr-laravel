@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\WorkOrder;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -33,9 +34,19 @@ class WorkOrdersController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $this->authorize('create');
+        // Validate the request
+        $validated = $request->validate([
+            'title' => "required|max:255",
+            'description' => "required|max:255",
+            'address' => "required|max:255",
+            'status' => "required"
+        ]);
 
+        $this->authorize('create', WorkOrder::class);
+
+        return $request->user()
+        ->workOrders()
+        ->create($validated);
     }
 
     /**
