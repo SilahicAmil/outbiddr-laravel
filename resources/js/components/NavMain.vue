@@ -32,6 +32,25 @@ const page = usePage();
                         <span>{{ item.title }}</span>
                     </Link>
                 </SidebarMenuButton>
+
+                <!-- Sub item if any -->
+                <SidebarMenu v-if="item.subItems?.length" class="ml-2">
+                    <SidebarMenuItem
+                        v-for="sub in item.subItems"
+                        :key="sub.title"
+                    >
+                        <SidebarMenuButton
+                            as-child
+                            :is-active="urlIsActive(sub.href, page.url)"
+                            :tooltip="sub.title"
+                        >
+                            <Link :href="sub.href">
+                                <component :is="sub.icon" />
+                                <span>{{ sub.title }}</span>
+                            </Link>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                </SidebarMenu>
             </SidebarMenuItem>
         </SidebarMenu>
     </SidebarGroup>

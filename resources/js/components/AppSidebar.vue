@@ -14,7 +14,7 @@ import {
 import { dashboard, workorders } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { Folder, LayoutGrid } from 'lucide-vue-next';
+import { BadgePlus, Folder, LayoutGrid } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
@@ -27,6 +27,13 @@ const mainNavItems: NavItem[] = [
         title: 'Work Orders',
         href: workorders(),
         icon: Folder,
+        subItems: [
+            {
+                title: 'Create Work Order',
+                href: '/workorders/create',
+                icon: BadgePlus,
+            },
+        ],
     },
 ];
 

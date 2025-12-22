@@ -17,12 +17,14 @@ Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('workorders', [WorkOrdersController::class, 'index'])->name('workorders');
+Route::get('/workorders/create', [WorkOrdersController::class, 'create'])->name('workorders.create');
+Route::get('/workorders', [WorkOrdersController::class, 'index'])->name('workorders');
+Route::get('/workorders/{workOrder}', [WorkOrdersController::class, 'show']);
 
 Route::get('v1/users', function() {
     return User::all();
 });
 
-Route::get('/workorders/{workOrder}', [WorkOrdersController::class, 'show']);
+
 
 require __DIR__.'/settings.php';

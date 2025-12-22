@@ -18,9 +18,14 @@ class WorkOrdersController extends Controller
     public function index()
     {
         //
-        return Inertia::render('WorkOrders', [
+        return Inertia::render('WorkOrders/index', [
             'all_workorders' => WorkOrder::all(),
         ]);
+    }
+
+    public function create()
+    {
+        return Inertia::render('WorkOrders/CreateWorkOrder');
     }
 
     /**
