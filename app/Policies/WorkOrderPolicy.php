@@ -38,7 +38,8 @@ class WorkOrderPolicy
      */
     public function update(User $user, WorkOrder $workOrder): bool
     {
-        return false;
+        return $user->id === $workOrder->owner_id
+            || $user->id === $workOrder->assigned_user_id;
     }
 
     /**
@@ -46,7 +47,7 @@ class WorkOrderPolicy
      */
     public function delete(User $user, WorkOrder $workOrder): bool
     {
-        return false;
+        return $user->id === $workOrder->owner_id;
     }
 
     /**

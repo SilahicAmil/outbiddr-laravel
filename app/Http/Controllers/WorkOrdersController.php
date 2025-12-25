@@ -46,7 +46,7 @@ class WorkOrdersController extends Controller
 
         return $request->user()
         ->workOrders()
-        ->create($validated);
+        ->create($validated)->timestamps;
     }
 
     /**
@@ -55,23 +55,27 @@ class WorkOrdersController extends Controller
     public function show(WorkOrder $workOrder)
     {
         $this->authorize('view', $workOrder);
-        return $workOrder;
+        return Inertia::render("WorkOrders/EditWorkOrder", [
+            'workOrder' => $workOrder->toResource()
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(WorkOrder $workOrder)
-    {
-        //
-    }
+//    /**
+//     * Show the form for editing the specified resource.
+//     */
+//    public function edit(WorkOrder $workOrder)
+//    {
+//        return Inertia::render("WorkOrders/EditWorkOrder", [
+//            'workOrder' => $workOrder,
+//        ]);
+//    }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, WorkOrder $workOrder)
     {
-        //
+        $this->authorize('update', $workOrder);
     }
 
     /**
