@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 
-const props = defineProps({
+
+// TODO: Make below into a type
+defineProps<{
     workOrder: Array<{ id: string; title: string; status: string }>,
-});
+}>()
 
 // TODO: Breadcrumbs
 </script>

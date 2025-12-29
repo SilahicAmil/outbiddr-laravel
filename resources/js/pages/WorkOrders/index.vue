@@ -10,10 +10,11 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Work Orders', href: workorders().url },
 ];
 
-const props = defineProps({
-    all_workorders: Array<{ id: string; title: string; status: string }>,
-});
-console.log(props.all_workorders);
+
+defineProps<{
+    all_workorders: Array<{ id: string; title: string; status: string }>;
+}>();
+
 </script>
 
 <template>
@@ -23,7 +24,9 @@ console.log(props.all_workorders);
             <ul class="flex flex-wrap">
                 <li v-for="wo in all_workorders" :key="wo.id">
                     <Card class="m-6 h-64 w-64">
-                        <Link :href="`workorders/${wo.id}`"> {{ wo.title }} - {{ wo.status }} </Link>
+                        <Link :href="`workorders/${wo.id}`">
+                            {{ wo.title }} - {{ wo.status }}
+                        </Link>
                     </Card>
                 </li>
             </ul>
