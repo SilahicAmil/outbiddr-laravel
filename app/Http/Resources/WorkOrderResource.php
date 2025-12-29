@@ -17,7 +17,7 @@ class WorkOrderResource extends JsonResource
     {
 //        return parent::toArray($request);
 
-        return [
+        return array(
             "id" => $this->id,
             'owner_name' => User::find($this->owner_id)->name,
             'assigned_user' => User::find($this->assigned_user_id)?->name,
@@ -26,6 +26,6 @@ class WorkOrderResource extends JsonResource
             'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
-        ];
+        );
     }
 }

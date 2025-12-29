@@ -11,18 +11,13 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { dashboard, workorders } from '@/routes';
+import { workorders } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { BadgePlus, Folder, LayoutGrid } from 'lucide-vue-next';
+import { BadgePlus, Folder } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        href: dashboard(),
-        icon: LayoutGrid,
-    },
     {
         title: 'Work Orders',
         href: workorders(),
@@ -34,6 +29,11 @@ const mainNavItems: NavItem[] = [
                 icon: BadgePlus,
             },
         ],
+    },
+    {
+        title: 'Bids',
+        href: workorders(),
+        icon: Folder,
     },
 ];
 
@@ -51,8 +51,8 @@ const footerNavItems: NavItem[] = [
         <SidebarHeader>
             <SidebarMenu>
                 <SidebarMenuItem>
-                    <SidebarMenuButton size="lg" as-child>
-                        <Link :href="dashboard()">
+                    <SidebarMenuButton size="sm" as-child>
+                        <Link :href="workorders()">
                             <AppLogo />
                         </Link>
                     </SidebarMenuButton>

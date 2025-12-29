@@ -13,12 +13,11 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// TODO add middleware ['auth', 'verified'] to each route. Probably add them to a group to make it easier.
 
 Route::get('/workorders/create', [WorkOrdersController::class, 'create'])->name('workorders.create');
 Route::post('/workorders/create', [WorkOrdersController::class, 'store'])->name('workorders.store');
+Route::get('/workorders/edit/{workOrder}', [WorkOrdersController::class, 'edit']);
 Route::get('/workorders', [WorkOrdersController::class, 'index'])->name('workorders');
 Route::get('/workorders/{workOrder}', [WorkOrdersController::class, 'show']);
 

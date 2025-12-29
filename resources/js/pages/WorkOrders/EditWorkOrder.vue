@@ -4,13 +4,14 @@ import AppLayout from '@/layouts/AppLayout.vue';
 const props = defineProps({
     workOrder: Array<{ id: string; title: string; status: string }>,
 });
-console.log(props.workOrder);
+
+// TODO: Breadcrumbs
 </script>
 
 <template>
     <AppLayout>
         <div>
-            <h1>Edit Work Orders</h1>
+            <h1>Edit Work Orders Page</h1>
             <ul v-for="wo in workOrder" :key="wo.id">
                 <li>{{wo.address}}</li>
                 <li>{{wo.status}}</li>

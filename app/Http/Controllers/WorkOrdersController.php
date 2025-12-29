@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\WorkOrderResource;
 use App\Models\WorkOrder;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -54,21 +55,23 @@ class WorkOrdersController extends Controller
      */
     public function show(WorkOrder $workOrder)
     {
+
+        info(gettype($workOrder->toResource()));
         $this->authorize('view', $workOrder);
-        return Inertia::render("WorkOrders/EditWorkOrder", [
+        return Inertia::render("WorkOrders/ViewWorkOrder", [
             'workOrder' => $workOrder->toResource()
         ]);
     }
 
-//    /**
-//     * Show the form for editing the specified resource.
-//     */
-//    public function edit(WorkOrder $workOrder)
-//    {
-//        return Inertia::render("WorkOrders/EditWorkOrder", [
-//            'workOrder' => $workOrder,
-//        ]);
-//    }
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(WorkOrder $workOrder)
+    {
+        return Inertia::render("WorkOrders/EditWorkOrder", [
+            'workOrder' => $workOrder->toResource()
+        ]);
+    }
 
     /**
      * Update the specified resource in storage.
