@@ -16,6 +16,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ]
 
 </script>
+<!--TODO: Make this an actual page that users can view stuff nicely-->
 
 <template>
     <AppLayout :breadcrumbs="breadcrumbs">

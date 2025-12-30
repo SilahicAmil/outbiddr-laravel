@@ -16,6 +16,7 @@ const { all_workorders } = defineProps<{
 
 </script>
 
+<!-- Make this better. Cards and styling overall-->
 <template>
     <Head title="Work Orders" />
     <AppLayout :breadcrumbs="breadcrumbs">
