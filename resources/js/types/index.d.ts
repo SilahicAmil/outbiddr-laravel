@@ -37,4 +37,15 @@ export interface User {
     updated_at: string;
 }
 
+export type WorkOrder = {
+    id: number;
+    address: string;
+    description: string;
+    status: string;
+    owner_name: string;
+    assigned_user: string;
+    created_at: Date;
+    updated_at: Date;
+}
+
 export type BreadcrumbItemType = BreadcrumbItem;

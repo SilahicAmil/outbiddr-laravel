@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem } from '@/types';
+import { type BreadcrumbItem, WorkOrder } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
 
 import Card from '@/components/ui/card/Card.vue';
@@ -10,9 +10,8 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Work Orders', href: workorders().url },
 ];
 
-
-defineProps<{
-    all_workorders: Array<{ id: string; title: string; status: string }>;
+const { all_workorders } = defineProps<{
+    all_workorders: WorkOrder[];
 }>();
 
 </script>

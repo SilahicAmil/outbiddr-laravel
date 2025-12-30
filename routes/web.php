@@ -13,13 +13,14 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-// TODO add middleware ['auth', 'verified'] to each route. Probably add them to a group to make it easier.
-
-Route::get('/workorders/create', [WorkOrdersController::class, 'create'])->name('workorders.create');
-Route::post('/workorders/create', [WorkOrdersController::class, 'store'])->name('workorders.store');
-Route::get('/workorders/edit/{workOrder}', [WorkOrdersController::class, 'edit']);
-Route::get('/workorders', [WorkOrdersController::class, 'index'])->name('workorders');
-Route::get('/workorders/{workOrder}', [WorkOrdersController::class, 'show']);
+// Workorders Group
+Route::controller(WorkOrdersController::class)->group(function () {
+    Route::get('/workorders/create', 'create')->name('workorders.create');
+    Route::post('/workorders/create', 'store')->name('workorders.store');
+    Route::get('/workorders/edit/{workOrder}','edit')->name('workorders.edit');
+    Route::get('/workorders', 'index')->name('workorders');
+    Route::get('/workorders/{workOrder}', 'show')->name('workorders.show');
+})->middleware(['auth', 'verified']);
 
 Route::get('v1/users', function() {
     return User::all();
