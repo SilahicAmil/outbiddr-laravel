@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bids;
+use App\Models\WorkOrder;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class BidsController extends Controller
 {
@@ -13,6 +15,10 @@ class BidsController extends Controller
     public function index()
     {
         //
+
+        return Inertia::render('Bids/index', [
+            'open_bids' => WorkOrder::where('status', '=', 'open', false)->get()
+        ]);
     }
 
     /**

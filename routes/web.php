@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
 use App\Http\Controllers\WorkOrdersController;
+use App\Http\Controllers\BidsController;
 use App\Models\User;
 
 
@@ -21,6 +22,9 @@ Route::controller(WorkOrdersController::class)->group(function () {
     Route::get('/workorders', 'index')->name('workorders');
     Route::get('/workorders/{workOrder}', 'show')->name('workorders.show');
 })->middleware(['auth', 'verified']);
+
+Route::get('/bids', [BidsController::class, 'index'])->name('bids');
+
 
 Route::get('v1/users', function() {
     return User::all();

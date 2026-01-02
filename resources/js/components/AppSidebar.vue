@@ -32,7 +32,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Bids',
-        href: workorders(),
+        href: "/bids",
         icon: Folder,
     },
 ];

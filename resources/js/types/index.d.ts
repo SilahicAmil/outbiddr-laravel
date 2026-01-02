@@ -48,4 +48,13 @@ export type WorkOrder = {
     updated_at: Date;
 }
 
+export type Bid = {
+    id: number;
+    amount: number;
+    bidder_id: number;
+    bid_status: string;
+    created_at: Date;
+    updated_at: Date;
+}
+
 export type BreadcrumbItemType = BreadcrumbItem;
