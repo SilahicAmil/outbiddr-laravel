@@ -23,12 +23,9 @@ return new class extends Migration
                   ->constrained('users')
                   ->cascadeOnDelete();
 
-            $table->decimal('price', 10, 2);
-            $table->text('message')->nullable();
-
-            // bid status: pending | accepted | rejected
-            $table->string('status')->default('pending');
-
+            $table->float('amount');
+            $table->text('event');
+            $table->longText('metadata');
             $table->timestamps();
         });
     }

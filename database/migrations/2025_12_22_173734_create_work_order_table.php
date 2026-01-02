@@ -26,6 +26,8 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('address')->nullable();
+            $table->date('bidding_opens_at');
+            $table->date('bidding_ends_at');
             $table->string('status')->default('open');
             $table->timestamps();
         });

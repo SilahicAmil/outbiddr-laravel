@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\BidsController;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class WorkOrder extends Pivot
@@ -13,6 +14,11 @@ class WorkOrder extends Pivot
     public function owner()
     {
         return $this->belongsTo(User::class, 'owner_id');
+    }
+
+    public function bids()
+    {
+        return $this->belongsToMany(Bid::class);
     }
 
 }
