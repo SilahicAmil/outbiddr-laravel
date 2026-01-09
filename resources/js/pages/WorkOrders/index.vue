@@ -14,11 +14,11 @@ const { all_workorders } = defineProps<{
     all_workorders: WorkOrder[];
 }>();
 
-const sizeByStatus: Record<string, 'sm' | 'md' | 'lg'> = {
-    assigned: 'lg',
-    open: 'md',
-    completed: 'sm',
-};
+// const sizeByStatus: Record<string, 'sm' | 'md' | 'lg'> = {
+//     assigned: 'lg',
+//     open: 'md',
+//     completed: 'sm',
+// };
 
 const groupedWorkOrders = {
     assigned: all_workorders.filter(
