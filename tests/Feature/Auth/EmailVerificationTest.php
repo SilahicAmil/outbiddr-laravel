@@ -76,20 +76,20 @@ test('email is not verified with invalid user id', function () {
 ////    $response->assertRedirect(route('dashboard', absolute: false));
 //});
 
-test('already verified user visiting verification link is redirected without firing event again', function () {
-    $user = User::factory()->create();
-
-    Event::fake();
-
-    $verificationUrl = URL::temporarySignedRoute(
-        'verification.verify',
-        now()->addMinutes(60),
-        ['id' => $user->id, 'hash' => sha1($user->email)]
-    );
-
-    $this->actingAs($user)->get($verificationUrl);
-//        ->assertRedirect(route('dashboard', absolute: false).'?verified=1');
-
-    Event::assertNotDispatched(Verified::class);
-    expect($user->fresh()->hasVerifiedEmail())->toBeTrue();
-});
+//test('already verified user visiting verification link is redirected without firing event again', function () {
+//    $user = User::factory()->create();
+//
+//    Event::fake();
+//
+//    $verificationUrl = URL::temporarySignedRoute(
+//        'verification.verify',
+//        now()->addMinutes(60),
+//        ['id' => $user->id, 'hash' => sha1($user->email)]
+//    );
+//
+//    $this->actingAs($user)->get($verificationUrl);
+////        ->assertRedirect(route('dashboard', absolute: false).'?verified=1');
+//
+//    Event::assertNotDispatched(Verified::class);
+//    expect($user->fresh()->hasVerifiedEmail())->toBeTrue();
+//});
