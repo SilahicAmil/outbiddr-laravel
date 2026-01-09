@@ -14,6 +14,8 @@ const formData = reactive({
     description: '',
     address: '',
     status: '',
+    bidding_opens_at: Date.now(),
+    bidding_ends_at: Date.now()
 });
 
 const csrfToken = document
@@ -35,6 +37,10 @@ async function submitForm() {
 
     const res = await req.json();
     console.log(res);
+
+    if (res) {
+        return window.location.href = '/workorders';
+    }
 }
 </script>
 

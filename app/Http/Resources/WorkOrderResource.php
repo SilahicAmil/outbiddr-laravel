@@ -22,10 +22,10 @@ class WorkOrderResource extends JsonResource
             'owner_name' => User::find($this->owner_id)->name,
             'assigned_user' => User::find($this->assigned_user_id)?->name,
             'description' => $this->description,
-            'address' => $this->description,
+            'address' => $this->address,
             'status' => $this->status,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'created_at' => $this->created_at->toDateTimeString(),
+            'updated_at' => $this->updated_at->toDateTimeString()
         );
     }
 }

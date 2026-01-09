@@ -44,8 +44,8 @@ export type WorkOrder = {
     status: string;
     owner_name: string;
     assigned_user: string;
-    created_at: Date;
-    updated_at: Date;
+    created_at: string;
+    updated_at: string;
 }
 
 export type Bid = {
@@ -53,8 +53,8 @@ export type Bid = {
     amount: number;
     bidder_id: number;
     bid_status: string;
-    created_at: Date;
-    updated_at: Date;
+    created_at: string;
+    updated_at: string;
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;

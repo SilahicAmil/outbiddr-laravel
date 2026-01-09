@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use App\Http\Controllers\BidsController;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class WorkOrder extends Pivot
 {
+    use HasFactory;
     //
     protected $table = 'work_orders';
 
