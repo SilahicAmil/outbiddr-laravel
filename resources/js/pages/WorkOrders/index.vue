@@ -94,9 +94,14 @@ console.log(all_workorders);
                             <Link :href="`workorders/${wo.id}`">{{
                                 wo.title
                             }}</Link>
-                            <br>
-                            <p class="mt-4">{{wo.description.substring(0,75)}}...</p>
-                            <p class="mb-4">WO Completed At: {{wo.updated_at}}</p>
+                            <br />
+                            <p class="mt-4">
+                                {{ wo.description.substring(0, 75) }}...
+                            </p>
+                            <p class="mb-4">
+                                WO Completed At:
+                                {{ new Date(wo.updated_at).toLocaleString() }}
+                            </p>
                             <div>DIVIDE</div>
                         </li>
                     </ul>
