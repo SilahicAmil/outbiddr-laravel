@@ -14,12 +14,6 @@ const { all_workorders } = defineProps<{
     all_workorders: WorkOrder[];
 }>();
 
-// const sizeByStatus: Record<string, 'sm' | 'md' | 'lg'> = {
-//     assigned: 'lg',
-//     open: 'md',
-//     completed: 'sm',
-// };
-
 const groupedWorkOrders = {
     assigned: all_workorders.filter(
         (wo) => wo.status.toLowerCase() === 'assigned',
@@ -30,13 +24,6 @@ const groupedWorkOrders = {
     ),
 };
 
-// TODO: Create a masonry type dashboard
-// Cards will be
-// Assigned WO's, Recently Created and Completed
-// Each card is a scrollable. Like a table inside
-// Height 32 type thing and then you can go to each WO
-// Bids will be a card style where you can preview each WO
-// TO bid on
 
 console.log(all_workorders);
 </script>

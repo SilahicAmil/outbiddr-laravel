@@ -15,7 +15,6 @@ const sizeClasses = {
     md: 'h-96 m-4 p-4 w-80 overflow-y-auto',
     lg: 'h-96 m-4 p-4 w-80 overflow-y-auto',
 }
-
 </script>
 
 
