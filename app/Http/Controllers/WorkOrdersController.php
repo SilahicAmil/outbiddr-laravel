@@ -78,7 +78,15 @@ class WorkOrdersController extends Controller
      */
     public function update(Request $request, WorkOrder $workOrder)
     {
+        $validated = $request->validate([
+            'title' => "required|max:255",
+            'description' => "required|max:255",
+            'address' => "required|max:255",
+            'status' => "required"
+        ]);
         $this->authorize('update', $workOrder);
+        return $request->user()
+            ->workOrders()->update($validated);
     }
 
     /**

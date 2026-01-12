@@ -24,11 +24,14 @@ const groupedWorkOrders = {
     ),
 };
 
+// TODO : Create table type view inside of the cards
+// Basic information displayed for each WO
+// Then onto the actual WO page.
+
 
 console.log(all_workorders);
 </script>
 
-<!-- Make this better. Cards and styling overall-->
 <template>
     <Head title="Work Orders" />
     <AppLayout :breadcrumbs="breadcrumbs">
