@@ -19,6 +19,7 @@ Route::controller(WorkOrdersController::class)->group(function () {
     Route::get('/workorders/create', 'create')->name('workorders.create');
     Route::post('/workorders/create', 'store')->name('workorders.store');
     Route::get('/workorders/edit/{workOrder}','edit')->name('workorders.edit');
+    Route::post('/workorders/edit/{workOrder}','update')->name('workorders.update');
     Route::get('/workorders', 'index')->name('workorders');
     Route::get('/workorders/{workOrder}', 'show')->name('workorders.show');
 })->middleware(['auth', 'verified']);

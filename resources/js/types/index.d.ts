@@ -39,11 +39,12 @@ export interface User {
 
 export type WorkOrder = {
     id: number;
+    title?: string;
     address: string;
     description: string;
     status: string;
     owner_name: string;
-    assigned_user: string;
+    assigned_user: string | null;
     created_at: string;
     updated_at: string;
 }

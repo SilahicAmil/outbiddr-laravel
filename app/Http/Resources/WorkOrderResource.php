@@ -19,6 +19,7 @@ class WorkOrderResource extends JsonResource
 
         return array(
             "id" => $this->id,
+            'title' => $this->title,
             'owner_name' => User::find($this->owner_id)->name,
             'assigned_user' => User::find($this->assigned_user_id)?->name,
             'description' => $this->description,

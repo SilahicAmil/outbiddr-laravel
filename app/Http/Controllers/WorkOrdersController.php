@@ -21,7 +21,9 @@ class WorkOrdersController extends Controller
     {
         //
         return Inertia::render('WorkOrders/index', [
-            'all_workorders' => WorkOrder::all(),
+           'all_workorders' => WorkOrderResource::collection(
+                WorkOrder::all()
+            ),
         ]);
     }
 
@@ -85,8 +87,8 @@ class WorkOrdersController extends Controller
             'status' => "required"
         ]);
         $this->authorize('update', $workOrder);
-        return $request->user()
-            ->workOrders()->update($validated);
+        // Only update the workorder in the database, not the resource
+        $workOrder->update($validated);
     }
 
     /**

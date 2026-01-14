@@ -1,10 +1,18 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem, WorkOrder } from '@/types';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import { ChevronDown } from 'lucide-vue-next';
 
-import Card from '@/components/ui/card/Card.vue';
+import {
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger,
+} from '@/components/ui/collapsible';
+import WorkOrdersTable from '@/components/WorkOrdersTable.vue';
 import { workorders } from '@/routes';
+import { cn } from '@/lib/utils';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Work Orders', href: workorders().url },
@@ -15,88 +23,145 @@ const { all_workorders } = defineProps<{
 }>();
 
 const groupedWorkOrders = {
-    assigned: all_workorders.filter(
+    assigned: all_workorders.data.filter(
         (wo) => wo.status.toLowerCase() === 'assigned',
     ),
-    open: all_workorders.filter((wo) => wo.status.toLowerCase() === 'open'),
-    completed: all_workorders.filter(
+    open: all_workorders.data.filter((wo) => wo.status.toLowerCase() === 'open'),
+    completed: all_workorders.data.filter(
         (wo) => wo.status.toLowerCase() === 'completed',
     ),
 };
 
-// TODO : Create table type view inside of the cards
-// Basic information displayed for each WO
-// Then onto the actual WO page.
+const assignedOpen = ref(false);
+const openOpen = ref(false);
+const completedOpen = ref(false);
 
-
-console.log(all_workorders);
 </script>
 
 <template>
     <Head title="Work Orders" />
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="">
-            <div class="flex gap-4">
-                <Card
-                    class="h-96 flex-1 overflow-y-auto"
-                    title="Assigned Work Orders"
-                    :len="groupedWorkOrders.assigned.length"
-                    color="green"
+        <div class="space-y-4 max-w-7xl ">
+            <!-- Assigned Work Orders Accordion -->
+            <Collapsible
+                v-model:open="assignedOpen"
+                class="border rounded-lg"
+            >
+                <CollapsibleTrigger
+                    class="flex w-full items-center justify-between p-4 hover:bg-gray-50 transition-colors"
                 >
-                    <ul>
-                        <li
-                            v-for="wo in groupedWorkOrders.assigned"
-                            :key="wo.id"
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-3 h-3 rounded-full bg-green-500"
+                        ></div>
+                        <h3 class="text-lg font-semibold">
+                            Assigned Work Orders
+                        </h3>
+                        <span
+                            class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full"
                         >
-                            <Link :href="`workorders/${wo.id}`">{{
-                                wo.title
-                            }}</Link>
-                        </li>
-                    </ul>
-                </Card>
+                            {{ groupedWorkOrders.assigned.length }}
+                        </span>
+                    </div>
+                    <ChevronDown
+                        :class="
+                            cn(
+                                'h-4 w-4 transition-transform duration-200',
+                                assignedOpen && 'rotate-180',
+                            )
+                        "
+                    />
+                </CollapsibleTrigger>
+                <CollapsibleContent class="border-t">
+                    <div class="p-4">
+                        <WorkOrdersTable
+                            :work-orders="groupedWorkOrders.assigned"
+                            date-column-label="Created"
+                        />
+                    </div>
+                </CollapsibleContent>
+            </Collapsible>
 
-                <Card
-                    class="h-96 flex-1 overflow-y-auto"
-                    title="Open Work Orders"
-                    :len="groupedWorkOrders.open.length"
-                    color="yellow"
+            <!-- Open Work Orders Accordion -->
+            <Collapsible
+                v-model:open="openOpen"
+                class="border rounded-lg"
+            >
+                <CollapsibleTrigger
+                    class="flex w-full items-center justify-between p-4 hover:bg-gray-50 transition-colors"
                 >
-                    <ul>
-                        <li v-for="wo in groupedWorkOrders.open" :key="wo.id">
-                            <Link :href="`workorders/${wo.id}`">{{
-                                wo.title
-                            }}</Link>
-                        </li>
-                    </ul>
-                </Card>
-
-                <Card
-                    class="h-96 flex-1 overflow-y-auto"
-                    title="Completed Work Orders"
-                    :len="groupedWorkOrders.completed.length"
-                    color="red"
-                >
-                    <ul>
-                        <li
-                            v-for="wo in groupedWorkOrders.completed"
-                            :key="wo.id"
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-3 h-3 rounded-full bg-yellow-500"
+                        ></div>
+                        <h3 class="text-lg font-semibold">
+                            Open Work Orders
+                        </h3>
+                        <span
+                            class="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full"
                         >
-                            <Link :href="`workorders/${wo.id}`">{{
-                                wo.title
-                            }}</Link>
-                            <br />
-                            <p class="mt-4">
-                                {{ wo.description.substring(0, 75) }}...
-                            </p>
-                            <p class="mb-4">
-                                WO Completed At:
-                                {{ new Date(wo.updated_at).toLocaleString() }}
-                            </p>
-                            <div>DIVIDE</div>
-                        </li>
-                    </ul>
-                </Card>
-            </div>
+                            {{ groupedWorkOrders.open.length }}
+                        </span>
+                    </div>
+                    <ChevronDown
+                        :class="
+                            cn(
+                                'h-4 w-4 transition-transform duration-200',
+                                openOpen && 'rotate-180',
+                            )
+                        "
+                    />
+                </CollapsibleTrigger>
+                <CollapsibleContent class="border-t">
+                    <div class="p-4">
+                        <WorkOrdersTable
+                            :work-orders="groupedWorkOrders.open"
+                            date-column-label="Created"
+                        />
+                    </div>
+                </CollapsibleContent>
+            </Collapsible>
+
+            <!-- Completed Work Orders Accordion -->
+            <Collapsible
+                v-model:open="completedOpen"
+                class="border rounded-lg"
+            >
+                <CollapsibleTrigger
+                    class="flex w-full items-center justify-between p-4 hover:bg-gray-50 transition-colors"
+                >
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-3 h-3 rounded-full bg-red-500"
+                        ></div>
+                        <h3 class="text-lg font-semibold">
+                            Completed Work Orders
+                        </h3>
+                        <span
+                            class="px-2 py-1 text-xs font-medium bg-red-100 text-red-800 rounded-full"
+                        >
+                            {{ groupedWorkOrders.completed.length }}
+                        </span>
+                    </div>
+                    <ChevronDown
+                        :class="
+                            cn(
+                                'h-4 w-4 transition-transform duration-200',
+                                completedOpen && 'rotate-180',
+                            )
+                        "
+                    />
+                </CollapsibleTrigger>
+                <CollapsibleContent class="border-t">
+                    <div class="p-4">
+                        <WorkOrdersTable
+                            :work-orders="groupedWorkOrders.completed"
+                            date-column-label="Completed"
+                            :use-updated-at="true"
+                        />
+                    </div>
+                </CollapsibleContent>
+            </Collapsible>
         </div>
     </AppLayout>
 </template>

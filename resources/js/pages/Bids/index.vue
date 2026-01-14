@@ -6,6 +6,8 @@
 // Create a WO seeder/factory
 // Create a Bid seeder/factory
 
+
+
 import { WorkOrder } from '@/types';
 import AppLayout from '@/layouts/AppLayout.vue';
 
@@ -17,6 +19,8 @@ console.log(open_bids);
 
 <template>
  <AppLayout>
+    <!-- Implement bids layout -->
+     
     <div>
         <h1>Open Bids</h1>
     </div>
