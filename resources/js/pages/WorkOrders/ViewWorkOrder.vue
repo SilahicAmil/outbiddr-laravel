@@ -57,7 +57,7 @@ const formatDate = (dateString: string) => {
                             <span class="font-bold">{{ workOrder.data.status.toUpperCase() }}</span>
                         </Badge>
                     </div>
-                <Link :href="edit({ workOrder: wo_id }).url">
+                <Link :href="edit({ workOrder: wo_id }).url" v-if="workOrder.data.status != 'completed'">
                     <Button variant="outline" class="cursor-pointer">
                         <Edit class="h-4 w-4 mr-2" />
                         Edit Work Order
