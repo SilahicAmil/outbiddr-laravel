@@ -58,7 +58,7 @@ const getWorkOrderUrl = (workOrderId: number) => {
                         {{ wo.owner_name.toUpperCase() }}
                     </td>
                     <td class="py-2 pr-4">
-                        {{ wo.assigned_user.toUpperCase() || 'Unassigned' }}
+                        {{ wo.assigned_user?.toUpperCase() || 'Unassigned' }}
                     </td>
                     <td class="py-2 text-gray-500">
                         {{ new Date(getDateValue(wo)).toLocaleDateString() }}
