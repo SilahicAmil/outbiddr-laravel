@@ -55,13 +55,53 @@ class WorkOrdersController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(WorkOrder $workOrder)
+    public function show(Request $request, WorkOrder $workOrder)
     {
-
-        info(gettype($workOrder->toResource()));
         $this->authorize('view', $workOrder);
+
+        // Load bids with user info if the current user is the owner
+        $bids = [];
+        $isOwner = $request->user()->id === $workOrder->owner_id;
+
+        if ($isOwner) {
+            $bids = $workOrder->bids()
+                ->with('user')
+                ->orderBy('amount', 'asc')
+                ->get()
+                ->map(function ($bid) {
+                    return [
+                        'id' => $bid->id,
+                        'user_id' => $bid->user_id,
+                        'bidder_name' => $bid->user->name,
+                        'amount' => $bid->amount,
+                        'status' => $bid->status,
+                        'created_at' => $bid->created_at->toDateTimeString(),
+                    ];
+                });
+        }
+
+        // Load notes for all users
+        $notes = $workOrder->notes()
+            ->with('user')
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map(function ($note) {
+                return [
+                    'id' => $note->id,
+                    'user_id' => $note->user_id,
+                    'user_name' => $note->user->name,
+                    'content' => $note->content,
+                    'created_at' => $note->created_at->toDateTimeString(),
+                    'updated_at' => $note->updated_at->toDateTimeString(),
+                ];
+            });
+
         return Inertia::render("WorkOrders/ViewWorkOrder", [
-            'workOrder' => $workOrder->toResource()
+            'workOrder' => new WorkOrderResource($workOrder),
+            'bids' => $bids,
+            'notes' => $notes,
+            'isOwner' => $isOwner,
+            'currentUserId' => $request->user()->id,
         ]);
     }
 
@@ -71,7 +111,7 @@ class WorkOrdersController extends Controller
     public function edit(WorkOrder $workOrder)
     {
         return Inertia::render("WorkOrders/EditWorkOrder", [
-            'workOrder' => $workOrder->toResource()
+            'workOrder' => new WorkOrderResource($workOrder)
         ]);
     }
 
@@ -89,6 +129,7 @@ class WorkOrdersController extends Controller
         $this->authorize('update', $workOrder);
         // Only update the workorder in the database, not the resource
         $workOrder->update($validated);
+        return new WorkOrderResource($workOrder);
     }
 
     /**

@@ -51,9 +51,11 @@ export type WorkOrder = {
 
 export type Bid = {
     id: number;
+    work_order_id: number;
+    user_id: number;
+    bidder_name: string;
     amount: number;
-    bidder_id: number;
-    bid_status: string;
+    status: 'pending' | 'accepted' | 'rejected';
     created_at: string;
     updated_at: string;
 }

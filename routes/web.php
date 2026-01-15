@@ -5,6 +5,7 @@ use Inertia\Inertia;
 use Laravel\Fortify\Features;
 use App\Http\Controllers\WorkOrdersController;
 use App\Http\Controllers\BidsController;
+use App\Http\Controllers\NotesController;
 use App\Models\User;
 
 
@@ -24,8 +25,21 @@ Route::controller(WorkOrdersController::class)->group(function () {
     Route::get('/workorders/{workOrder}', 'show')->name('workorders.show');
 })->middleware(['auth', 'verified']);
 
-Route::get('/bids', [BidsController::class, 'index'])->name('bids');
+// Bids Group
+Route::controller(BidsController::class)->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/bids', 'index')->name('bids');
+    Route::post('/bids/{workOrder}', 'store')->name('bids.store');
+    Route::post('/bids/{bid}/accept', 'accept')->name('bids.accept');
+    Route::post('/bids/{bid}/reject', 'reject')->name('bids.reject');
+    Route::get('/workorders/{workOrder}/bids', 'workOrderBids')->name('workorders.bids');
+});
 
+// Notes Group
+Route::controller(NotesController::class)->middleware(['auth', 'verified'])->group(function () {
+    Route::post('/workorders/{workOrder}/notes', 'store')->name('notes.store');
+    Route::put('/notes/{note}', 'update')->name('notes.update');
+    Route::delete('/notes/{note}', 'destroy')->name('notes.destroy');
+});
 
 Route::get('v1/users', function() {
     return User::all();

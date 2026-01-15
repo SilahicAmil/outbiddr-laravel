@@ -5,23 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Bid extends Model
+class Note extends Model
 {
-    protected $table = 'bids';
-
     protected $fillable = [
         'work_order_id',
         'user_id',
-        'amount',
-        'status',
-    ];
-
-    protected $casts = [
-        'amount' => 'float',
+        'content',
     ];
 
     /**
-     * Get the work order this bid belongs to.
+     * Get the work order this note belongs to.
      */
     public function workOrder(): BelongsTo
     {
@@ -29,7 +22,7 @@ class Bid extends Model
     }
 
     /**
-     * Get the user who placed this bid.
+     * Get the user who created this note.
      */
     public function user(): BelongsTo
     {
