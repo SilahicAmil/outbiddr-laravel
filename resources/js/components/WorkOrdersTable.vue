@@ -2,6 +2,7 @@
 import { type WorkOrder } from '@/types';
 import { Link } from '@inertiajs/vue3';
 import workordersRoutes from '@/routes/workorders';
+import { formatDate } from '@/utils/date';
 
 interface Props {
     workOrders: WorkOrder[];
@@ -61,7 +62,7 @@ const getWorkOrderUrl = (workOrderId: number) => {
                         {{ wo.assigned_user?.toUpperCase() || 'Unassigned' }}
                     </td>
                     <td class="py-2 text-gray-500">
-                        {{ new Date(getDateValue(wo)).toLocaleDateString() }}
+                        {{ formatDate(getDateValue(wo)) }}
                     </td>
                 </tr>
             </tbody>

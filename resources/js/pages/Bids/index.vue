@@ -9,6 +9,7 @@ import { DollarSign, MapPin, FileText, Building2, Calendar, Eye, Send } from 'lu
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { formatDate } from '@/utils/date';
 
 const { open_bids } = defineProps<{
     open_bids: { data: WorkOrder[] };
@@ -25,10 +26,6 @@ const bidMessages = reactive<Record<number, { type: 'success' | 'error'; text: s
 
 const getCsrfToken = () => {
     return document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
-};
-
-const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString();
 };
 
 async function submitBid(workOrderId: number) {

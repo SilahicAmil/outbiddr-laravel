@@ -39,17 +39,24 @@ class WorkOrdersController extends Controller
     {
         // Validate the request
         $validated = $request->validate([
-            'title' => "required|max:255",
-            'description' => "required|max:255",
-            'address' => "required|max:255",
-            'status' => "required"
+            'title' => 'required|max:255',
+            'description' => 'required',
+            'address' => 'nullable|max:255',
+            'status' => 'required|in:open,assigned,completed',
+            'bidding_opens_at' => 'required|date',
+            'bidding_ends_at' => 'required|date|after_or_equal:bidding_opens_at',
         ]);
 
         $this->authorize('create', WorkOrder::class);
 
-        return $request->user()
-        ->workOrders()
-        ->create($validated)->timestamps;
+        $workOrder = $request->user()
+            ->workOrders()
+            ->create($validated);
+
+        return response()->json([
+            'message' => 'Work order created successfully.',
+            'work_order' => new WorkOrderResource($workOrder),
+        ], 201);
     }
 
     /**

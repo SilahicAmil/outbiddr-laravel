@@ -9,6 +9,7 @@ import { Edit, MapPin, Calendar, User, Building2, FileText, DollarSign, Check, X
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { edit } from '@/routes/workorders';
+import { formatDateTime } from '@/utils/date';
 
 interface Note {
     id: number;
@@ -68,10 +69,6 @@ const getBidStatusColor = (status: string) => {
     if (status === 'accepted') return 'bg-green-500 text-white';
     if (status === 'rejected') return 'bg-red-500 text-white';
     return 'bg-gray-500 text-white';
-};
-
-const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleString();
 };
 
 const formatCurrency = (amount: number) => {
@@ -311,7 +308,7 @@ async function deleteNote(noteId: number) {
                                 <h2 class="text-lg font-semibold">Created</h2>
                             </div>
                             <p class="text-gray-300">
-                                {{ formatDate(workOrder.data.created_at) }}
+                                {{ formatDateTime(workOrder.data.created_at) }}
                             </p>
                         </div>
 
@@ -322,7 +319,7 @@ async function deleteNote(noteId: number) {
                                 <h2 class="text-lg font-semibold">Last Updated</h2>
                             </div>
                             <p class="text-gray-300">
-                                {{ formatDate(workOrder.data.updated_at) }}
+                                {{ formatDateTime(workOrder.data.updated_at) }}
                             </p>
                         </div>
                     </div>
@@ -375,7 +372,7 @@ async function deleteNote(noteId: number) {
                                 <p class="font-semibold">{{ bid.bidder_name }}</p>
                                 <p class="text-sm text-gray-400">
                                     <Clock class="h-3 w-3 inline mr-1" />
-                                    {{ formatDate(bid.created_at) }}
+                                    {{ formatDateTime(bid.created_at) }}
                                 </p>
                             </div>
                         </div>
@@ -492,7 +489,7 @@ async function deleteNote(noteId: number) {
                                 <div>
                                     <p class="font-semibold text-sm">{{ note.user_name }}</p>
                                     <p class="text-xs text-gray-400">
-                                        {{ formatDate(note.created_at) }}
+                                        {{ formatDateTime(note.created_at) }}
                                         <span v-if="note.updated_at !== note.created_at" class="italic">
                                             (edited)
                                         </span>

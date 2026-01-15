@@ -8,6 +8,7 @@ import { FileText, MapPin, CheckCircle, X, Save, Calendar, Building2, User, Type
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { formatDateTime } from '@/utils/date';
 
 const { workOrder } = defineProps<{
     workOrder: WorkOrder[];
@@ -37,10 +38,6 @@ const getStatusColor = (status: string) => {
     if (statusLower === 'open') return 'bg-yellow-400 text-black';
     if (statusLower === 'completed') return 'bg-red-400 text-black';
     return 'bg-gray-100 text-gray-800';
-};
-
-const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleString();
 };
 
 const cancel = () => {
@@ -237,7 +234,7 @@ async function submitForm() {
                                     <span class="text-sm">Created</span>
                                 </div>
                                 <p class="font-medium">
-                                    {{ formatDate(workOrder.data.created_at) }}
+                                    {{ formatDateTime(workOrder.data.created_at) }}
                                 </p>
                             </div>
 
@@ -248,7 +245,7 @@ async function submitForm() {
                                     <span class="text-sm">Last Updated</span>
                                 </div>
                                 <p class="font-medium">
-                                    {{ formatDate(workOrder.data.updated_at) }}
+                                    {{ formatDateTime(workOrder.data.updated_at) }}
                                 </p>
                             </div>
                         </div>
